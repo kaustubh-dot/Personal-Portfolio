@@ -180,9 +180,13 @@ section{position:relative;padding:clamp(90px,14vh,160px) clamp(20px,6vw,96px)}
 .social.li{--social-accent:var(--blue)}
 .social.lc{--social-accent:var(--yellow)}
 .social.gh{--social-accent:var(--ink)}
-.social svg{position:relative;z-index:1;width:22px;height:22px;flex:none;padding:5px;box-sizing:content-box;color:var(--ink);background:var(--yellow);border:2px solid var(--ink);border-radius:50%;box-shadow:2px 2px 0 var(--ink)}
-.social.gh svg{background:var(--paper-2)}
-.social .leetcode-mark{width:23px;height:23px}
+.social svg{position:relative;z-index:1;width:31px;height:31px;flex:none;color:var(--ink)}
+.social.ig svg{width:32px;height:32px;filter:drop-shadow(1.5px 1.5px 0 rgba(21,21,28,.16))}
+.social.li svg{width:29px;height:29px;color:#0A66C2;filter:drop-shadow(1.5px 1.5px 0 rgba(21,21,28,.18))}
+.social .leetcode-mark{width:32px;height:32px}
+.social .leetcode-mark .lc-gold{stroke:#FFA116}
+.social .leetcode-mark .lc-dark{stroke:#111827}
+.social.gh svg{width:31px;height:31px;color:var(--ink)}
 .social span{position:relative;z-index:1}
 @media(max-width:860px){.social-row{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px}.social{padding-inline:18px}}
 @media(max-width:460px){.social-row{grid-template-columns:1fr}.social{width:100%}}
