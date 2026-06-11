@@ -1,0 +1,10 @@
+{
+  "name": "kaustubh-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static portfolio site for Kaustubh Upadhya.",
+  "scripts": {
+    "build": "echo Static site - no build step required",
+    "dev": "python -m http.server 5500"
+  }
+}
