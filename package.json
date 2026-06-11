@@ -4,7 +4,7 @@
   "private": true,
   "description": "Static portfolio site for Kaustubh Upadhya.",
   "scripts": {
-    "build": "echo Static site - no build step required",
+    "build": "node -e \"const fs=require('fs'); fs.rmSync('public',{recursive:true,force:true}); fs.mkdirSync('public'); fs.cpSync('index.html','public/index.html'); fs.cpSync('assets','public/assets',{recursive:true}); fs.cpSync('robots.txt','public/robots.txt');\"",
     "dev": "python -m http.server 5500"
   }
 }
