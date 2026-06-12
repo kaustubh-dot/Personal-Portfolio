@@ -316,8 +316,12 @@ function webSplat(x, y) {
   gsap.to(el, { opacity: 0, scale: 1.15, duration: 0.6, delay: 0.5, onComplete: () => el.remove() });
 }
 
-addEventListener('pointerdown', (e) => {
-  const v = new THREE.Vector3((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1, 0.5).unproject(camera);
+const TAP_MOVE_LIMIT = 12;
+const TAP_TIME_LIMIT = 650;
+let touchPress = null;
+
+function fireWebShot(x, y) {
+  const v = new THREE.Vector3((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1, 0.5).unproject(camera);
   const dir = v.sub(camera.position).normalize();
   const target = camera.position.clone().add(dir.multiplyScalar(13));
   const start = handWorld();
@@ -331,8 +335,44 @@ addEventListener('pointerdown', (e) => {
   const shot = { mesh: m, seg: SEG, t: 0 };
   shots.push(shot);
   gsap.fromTo(hero.rotation, { z: 0 }, { z: -0.06, duration: 0.08, yoyo: true, repeat: 1 });
-  comicBurst(e.clientX, e.clientY);
-  webSplat(e.clientX, e.clientY);
+  comicBurst(x, y);
+  webSplat(x, y);
+}
+
+addEventListener('pointerdown', (e) => {
+  if (e.pointerType === 'touch') {
+    touchPress = {
+      id: e.pointerId,
+      x: e.clientX,
+      y: e.clientY,
+      startedAt: performance.now(),
+      moved: false
+    };
+    return;
+  }
+
+  fireWebShot(e.clientX, e.clientY);
+});
+
+addEventListener('pointermove', (e) => {
+  if (!touchPress || e.pointerId !== touchPress.id) return;
+  const dx = e.clientX - touchPress.x;
+  const dy = e.clientY - touchPress.y;
+  if (Math.hypot(dx, dy) > TAP_MOVE_LIMIT) touchPress.moved = true;
+});
+
+addEventListener('pointerup', (e) => {
+  if (!touchPress || e.pointerId !== touchPress.id) return;
+  const elapsed = performance.now() - touchPress.startedAt;
+  const isTap = !touchPress.moved && elapsed < TAP_TIME_LIMIT;
+  const x = touchPress.x;
+  const y = touchPress.y;
+  touchPress = null;
+  if (isTap) fireWebShot(x, y);
+});
+
+addEventListener('pointercancel', () => {
+  touchPress = null;
 });
 
 const clock = new THREE.Clock();
