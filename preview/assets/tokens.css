@@ -1,0 +1,143 @@
+/* Hallmark | studied-DNA: original Fable comic portfolio | tone: cinematic + playful | anchor: action red on warm newsprint | macrostructure: split selector → themed evidence archive | pre-emit: P5 H5 E4 S5 R4 V5 | slop: pass */
+:root {
+  --paper: #fbfaf5;
+  --paper-2: #f2efe6;
+  --paper-dark: #ded8c8;
+  --ink: #15151c;
+  --ink-soft: #4a4a58;
+  --red: #e0202f;
+  --red-deep: #b30e1e;
+  --blue: #2342d6;
+  --blue-deep: #16289b;
+  --yellow: #ffc400;
+  --storm: #17234c;
+  --storm-light: #6ed9ff;
+  --bruise: #2f204b;
+  --gamma: #9bc53d;
+  --line: rgb(21 21 28 / 18%);
+  --font-display: "Bangers", Impact, sans-serif;
+  --font-copy: "Patrick Hand", "Comic Sans MS", cursive;
+  --font-body: "Archivo", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+  --outline: 3px solid var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --shadow-md: 7px 7px 0 var(--ink);
+  --shadow-blue: 7px 7px 0 var(--blue-deep);
+  --page-pad: clamp(20px, 5vw, 76px);
+  --nav-height: 76px;
+  --chapter-gap: clamp(96px, 16vh, 190px);
+  --ease-impact: cubic-bezier(.18, .88, .28, 1.16);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+
+body.is-transitioning {
+  overflow: hidden;
+}
+
+button,
+a {
+  color: inherit;
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 4px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 12000;
+  padding: 10px 14px;
+  border: var(--outline);
+  background: var(--yellow);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --nav-height: 66px;
+    --chapter-gap: clamp(76px, 12vh, 120px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
