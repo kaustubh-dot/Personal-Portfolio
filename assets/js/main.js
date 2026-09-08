@@ -1,6 +1,10 @@
+(() => {
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (!window.gsap || !window.ScrollTrigger) { window.finishPortfolioIntro?.(); return; }
 gsap.registerPlugin(ScrollTrigger);
 
+function initScene() {
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -253,7 +257,7 @@ function setHud(p) {
 
 addEventListener('scroll', () => {
   const h = document.documentElement;
-  const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   webTarget = p;
   document.getElementById('progFill').style.width = p * 100 + '%';
   document.getElementById('hudScroll').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
@@ -321,6 +325,7 @@ const TAP_TIME_LIMIT = 650;
 let touchPress = null;
 
 function fireWebShot(x, y) {
+  if (reduceMotion) return;
   const v = new THREE.Vector3((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1, 0.5).unproject(camera);
   const dir = v.sub(camera.position).normalize();
   const target = camera.position.clone().add(dir.multiplyScalar(13));
@@ -351,7 +356,7 @@ addEventListener('pointerdown', (e) => {
     return;
   }
 
-  fireWebShot(e.clientX, e.clientY);
+  if (e.button === 0) fireWebShot(e.clientX, e.clientY);
 });
 
 addEventListener('pointermove', (e) => {
@@ -444,6 +449,7 @@ function tick() {
       if (s.mesh.material.opacity <= 0) {
         scene.remove(s.mesh);
         s.mesh.geometry.dispose();
+        s.mesh.material.dispose();
         shots.splice(i, 1);
       }
     }
@@ -459,6 +465,7 @@ addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  if (reduceMotion) renderer.render(scene, camera);
 });
 
 const trailC = document.getElementById('webTrail');
@@ -472,6 +479,7 @@ addEventListener('resize', sizeTrail);
 
 const trail = [];
 addEventListener('pointermove', (e) => {
+  if (reduceMotion || !finePointer) return;
   trail.unshift({ x: e.clientX, y: e.clientY });
   if (trail.length > 26) {
     trail.pop();
@@ -504,182 +512,110 @@ addEventListener('pointermove', (e) => {
       }
     }
   }
-  requestAnimationFrame(trailLoop);
+  if (!reduceMotion && finePointer) requestAnimationFrame(trailLoop);
 }());
 
-const statuses = ['CLIMBING THE TOWER...', 'TAKING POSITION...', 'LOADING WEB FLUID...', 'INKING THE SKYLINE...', 'READY TO FIRE!'];
-let progress = 0;
-let si = 0;
-const loadFill = document.getElementById('loadFill');
-const loadStatus = document.getElementById('loadStatus');
-const loadInt = setInterval(() => {
-  progress = Math.min(100, progress + Math.random() * 14);
-  loadFill.style.width = progress + '%';
-  if ((progress / 100) * statuses.length > si && si < statuses.length - 1) {
-    si++;
-    loadStatus.textContent = statuses[si];
-  }
-  if (progress >= 100) {
-    clearInterval(loadInt);
-    loadStatus.textContent = statuses[statuses.length - 1];
-    setTimeout(launch, 400);
-  }
-}, 110);
+
+return () => {
+  dispatchEvent(new Event('scroll'));
+  tick();
+  if (!reduceMotion) gsap.from(camera.position, { z: 24, y: 8, duration: 2.6, ease: 'power3.out' });
+};
+}
+
+let startScene = () => {};
+try {
+  if (window.THREE) startScene = initScene();
+} catch (error) {
+  // Project content and pointer interactions do not require WebGL.
+  document.getElementById('gl').hidden = true;
+  console.warn('Portfolio background unavailable:', error.message);
+}
+if (!reduceMotion) document.documentElement.classList.add('motion-ready');
 
 function launch() {
-  document.getElementById('loader').classList.add('done');
-  tick();
-  if (reduceMotion) {
-    renderer.render(scene, camera);
-    return;
-  }
-  const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-  tl.to('.hero h1 .row span', { y: 0, rotateX: 0, duration: 1.4, stagger: 0.15, ease: 'back.out(1.4)' }, 0.2)
-    .to('.hero-tag', { opacity: 1, duration: 1 }, 0.5)
-    .to('.hero-sub', { opacity: 1, duration: 1 }, 1)
-    .to('.hero-actions', { opacity: 1, duration: 1 }, 1.2)
-    .to('.hero-meta', { opacity: 1, duration: 1 }, 1.4)
-    .from(camera.position, { z: 24, y: 8, duration: 2.6, ease: 'power3.out' }, 0);
-  scrambleText(document.getElementById('scrambleTag'));
+  window.finishPortfolioIntro?.();
+  startScene();
+  if (reduceMotion) return;
+  gsap.timeline({ defaults: { ease: 'power4.out' } })
+    .to('.hero h1 .row > span', { y: 0, rotateX: 0, opacity: 1, duration: 1.25, stagger: .12 }, .12)
+    .to('.hero-tag', { opacity: 1, duration: .8 }, .25)
+    .to('.hero-sub', { opacity: 1, duration: .8 }, .55)
+    .to('.hero-actions', { opacity: 1, duration: .8 }, .7)
+    .to('.hero-meta', { opacity: 1, duration: .8 }, .85);
+  ScrollTrigger.refresh();
 }
+const fontReady = document.fonts?.ready || Promise.resolve();
+Promise.race([fontReady, new Promise(resolve => setTimeout(resolve, 750))])
+  .then(() => setTimeout(launch, reduceMotion ? 0 : Math.max(0, 450 - (performance.now() - (window.portfolioIntroStarted || 0)))));
 
-const h13d = document.getElementById('h13d');
-document.querySelectorAll('.hero h1 .row').forEach((r, i) => {
-  r.style.transform = `translateZ(${i * 38}px)`;
-});
-addEventListener('pointermove', (e) => {
-  if (reduceMotion) {
-    return;
-  }
-  const x = e.clientX / innerWidth - 0.5;
-  const y = e.clientY / innerHeight - 0.5;
-  gsap.to(h13d, { rotateY: x * 14, rotateX: -y * 10, duration: 0.8, ease: 'power2.out', transformPerspective: 1100 });
-});
-gsap.to(h13d, { y: -8, duration: 2.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-
-const CHARS = '!<>-_\\/[]{}=+*^?#01';
-function scrambleText(el) {
-  const original = el.dataset.original || el.textContent;
-  el.dataset.original = original;
-  let frame = 0;
-  const total = 40;
-  const timer = setInterval(() => {
-    frame++;
-    el.textContent = original.split('').map((ch, i) => {
-      if (ch === ' ') {
-        return ' ';
-      }
-      if (i < (frame / total) * original.length) {
-        return ch;
-      }
-      return CHARS[Math.floor(Math.random() * CHARS.length)];
-    }).join('');
-    if (frame >= total) {
-      el.textContent = original;
-      clearInterval(timer);
-    }
-  }, 30);
-}
-
-gsap.utils.toArray('.reveal').forEach((el) => {
-  gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
-});
-gsap.utils.toArray('.flip3d').forEach((el) => {
-  gsap.to(el, {
-    opacity: 1,
-    rotateX: 0,
-    y: 0,
-    duration: 1.3,
-    ease: 'back.out(1.5)',
-    transformPerspective: 900,
-    scrollTrigger: { trigger: el, start: 'top 86%' }
+if (!reduceMotion) {
+  const h13d = document.getElementById('h13d');
+  document.querySelectorAll('.hero h1 .row').forEach((row, index) => {
+    row.style.transform = 'translateZ(' + index * 18 + 'px)';
   });
-});
-gsap.utils.toArray('.num[data-count]').forEach((el) => {
-  const target = +el.dataset.count;
+  if (finePointer) {
+    addEventListener('pointermove', (event) => {
+      const x = event.clientX / innerWidth - .5;
+      const y = event.clientY / innerHeight - .5;
+      gsap.to(h13d, { rotateY: x * 10, rotateX: -y * 7, duration: .8, ease: 'power2.out', transformPerspective: 1100 });
+    });
+    gsap.to(h13d, { y: -8, duration: 2.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  }
+  gsap.utils.toArray('.reveal').forEach((element) => {
+    gsap.to(element, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 92%', once: true } });
+  });
+  gsap.utils.toArray('.flip3d').forEach((element) => {
+    gsap.to(element, { opacity: 1, rotateX: 0, y: 0, duration: 1.3, ease: 'back.out(1.5)', transformPerspective: 900, scrollTrigger: { trigger: element, start: 'top 90%', once: true } });
+  });
+  const skewSet = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
   ScrollTrigger.create({
-    trigger: el,
-    start: 'top 90%',
-    once: true,
-    onEnter: () => {
-      gsap.fromTo(el, { innerText: 0 }, {
-        innerText: target,
-        duration: 2,
-        ease: 'power2.out',
-        snap: { innerText: 1 },
-        onUpdate() {
-          el.textContent = Math.floor(+el.textContent) + (target === 100 ? '%' : '+');
-        },
-        onComplete() {
-          el.textContent = target + (target === 100 ? '%' : '+');
-        }
-      });
+    onUpdate(self) {
+      const velocity = Math.max(-4, Math.min(4, self.getVelocity() / -450));
+      skewSet(velocity);
+      gsap.to('.skew-wrap', { skewY: 0, duration: .7, ease: 'power3.out', overwrite: true });
     }
   });
-});
+}
 
-const skewSet = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
-ScrollTrigger.create({
-  onUpdate(self) {
-    const v = Math.max(-4, Math.min(4, self.getVelocity() / -450));
-    skewSet(v);
-    gsap.to('.skew-wrap', { skewY: 0, duration: 0.7, ease: 'power3.out', overwrite: true });
-  }
-});
-gsap.utils.toArray('.card').forEach((c, i) => {
-  gsap.fromTo(c, { y: 60 * (i % 2 ? 1 : -0.4) }, { y: 0, scrollTrigger: { trigger: '.cards', start: 'top 95%', end: 'top 30%', scrub: 1 } });
-});
-
-const dot = document.querySelector('.cursor-dot');
-const ring = document.querySelector('.cursor-ring');
-const label = document.getElementById('cursorLabel');
-let rx = 0;
-let ry = 0;
-addEventListener('pointermove', (e) => {
-  dot.style.transform = `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
-  label.style.left = e.clientX + 'px';
-  label.style.top = e.clientY + 'px';
-  rx = e.clientX;
-  ry = e.clientY;
-});
-(function ringLoop() {
-  const cur = ring.getBoundingClientRect();
-  const cx = cur.left + cur.width / 2;
-  const cy = cur.top + cur.height / 2;
-  ring.style.transform = `translate(${cx + (rx - cx) * 0.18}px,${cy + (ry - cy) * 0.18}px) translate(-50%,-50%)`;
-  requestAnimationFrame(ringLoop);
-}());
-
-document.querySelectorAll('.hoverable,a,button').forEach((el) => {
-  el.addEventListener('pointerenter', () => {
-    ring.classList.add('hovering');
-    if (el.dataset.label) {
-      label.textContent = el.dataset.label;
-      label.style.opacity = 1;
-    }
+if (finePointer && !reduceMotion) {
+  document.body.classList.add('custom-cursor');
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  const label = document.getElementById('cursorLabel');
+  let pointerX = -100, pointerY = -100, ringX = -100, ringY = -100;
+  addEventListener('pointermove', (event) => {
+    pointerX = event.clientX; pointerY = event.clientY;
+    dot.style.transform = 'translate(' + pointerX + 'px,' + pointerY + 'px) translate(-50%,-50%)';
+    label.style.left = pointerX + 'px'; label.style.top = pointerY + 'px';
   });
-  el.addEventListener('pointerleave', () => {
-    ring.classList.remove('hovering');
-    label.style.opacity = 0;
+  gsap.ticker.add(() => {
+    ringX += (pointerX - ringX) * .18;
+    ringY += (pointerY - ringY) * .18;
+    ring.style.transform = 'translate(' + ringX + 'px,' + ringY + 'px) translate(-50%,-50%)';
   });
-});
-
-document.querySelectorAll('.magnetic').forEach((btn) => {
-  btn.addEventListener('pointermove', (e) => {
-    const r = btn.getBoundingClientRect();
-    gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.32, y: (e.clientY - r.top - r.height / 2) * 0.32, duration: 0.4 });
+  document.querySelectorAll('.hoverable,a,button').forEach((element) => {
+    element.addEventListener('pointerenter', () => {
+      ring.classList.add('hovering');
+      if (element.dataset.label) { label.textContent = element.dataset.label; label.style.opacity = 1; }
+    });
+    element.addEventListener('pointerleave', () => {
+      ring.classList.remove('hovering'); label.style.opacity = 0;
+    });
   });
-  btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,.4)' }));
-});
-
-document.querySelectorAll('.card').forEach((card) => {
-  card.addEventListener('pointermove', (e) => {
-    const r = card.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width;
-    const py = (e.clientY - r.top) / r.height;
-    card.style.setProperty('--mx', px * 100 + '%');
-    card.style.setProperty('--my', py * 100 + '%');
-    gsap.to(card, { rotateY: (px - 0.5) * 16, rotateX: (0.5 - py) * 16, duration: 0.5, ease: 'power2.out', transformPerspective: 1000 });
+  document.querySelectorAll('.magnetic').forEach((button) => {
+    button.addEventListener('pointermove', (event) => {
+      const rect = button.getBoundingClientRect();
+      gsap.to(button, { x: (event.clientX - rect.left - rect.width / 2) * .32, y: (event.clientY - rect.top - rect.height / 2) * .32, duration: .4 });
+    });
+    button.addEventListener('pointerleave', () => gsap.to(button, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.4)' }));
   });
-  card.addEventListener('pointerleave', () => gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'elastic.out(1,.5)' }));
-});
+  document.querySelectorAll('.project-image').forEach((image) => {
+    image.addEventListener('pointermove', (event) => {
+      const rect = image.getBoundingClientRect();
+      gsap.to(image, { rotateY: (event.clientX - rect.left - rect.width / 2) / rect.width * 5, rotateX: -(event.clientY - rect.top - rect.height / 2) / rect.height * 5, duration: .5, ease: 'power2.out', transformPerspective: 1400 });
+    });
+    image.addEventListener('pointerleave', () => gsap.to(image, { rotateX: 0, rotateY: 0, duration: .8, ease: 'elastic.out(1,.5)' }));
+  });
+}
+})();

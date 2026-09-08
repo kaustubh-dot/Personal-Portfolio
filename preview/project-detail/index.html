@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <base href="../../">
+  <meta name="robots" content="noindex,nofollow">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#FBFAF5">
-  <title>Kaustubh Upadhya — Selected Work</title>
+  <title>Project page click-through preview — Kaustubh Upadhya</title>
   <meta name="description" content="The portfolio of Kaustubh Upadhya, an AI & Data Science student based in Hyderabad, India.">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +18,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <style>.project-image{display:block}.detail-preview-link{font-size:13px!important}.preview-notice{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;background:#15151c;color:#fbfaf5;border:1px solid #fbfaf5;padding:9px 15px;font:9px/1.4 "JetBrains Mono",monospace;white-space:nowrap;box-shadow:3px 3px 0 #E0202F;pointer-events:none}</style>
 </head>
 <body>
-  <a class="skip-link" href="#work">Skip to projects</a>
+  <a class="skip-link" href="preview/project-detail/index.html#work">Skip to projects</a>
   <div id="loader" aria-hidden="true">
     <div class="loader-top"><span>KAUSTUBH UPADHYA</span><span>PORTFOLIO</span></div>
     <div class="loader-center"><img class="loader-emblem" src="assets/images/spider-signal.svg" width="600" height="400" alt=""><div class="loader-title"><span>Kaustubh</span><span>Upadhya.</span></div></div>
@@ -34,11 +37,11 @@
   <div class="progress" aria-hidden="true"><i id="progFill"></i></div>
   <div class="hud hud-br" aria-hidden="true"><span id="hudWeb" hidden></span>SCROLL <b id="hudScroll">000%</b></div>
   <nav aria-label="Main navigation">
-    <a class="nav-logo hoverable" href="#top" aria-label="Kaustubh Upadhya, back to top"><span class="publisher-logo">KU.</span><span class="publisher-name">KAUSTUBH<br>UPADHYA</span></a>
+    <a class="nav-logo hoverable" href="preview/project-detail/index.html#top" aria-label="Kaustubh Upadhya, back to top"><span class="publisher-logo">KU.</span><span class="publisher-name">KAUSTUBH<br>UPADHYA</span></a>
     <div class="nav-links">
-      <a class="hoverable" href="#work">Work <sup>03</sup></a>
-      <a class="hoverable" href="#about">About</a>
-      <a class="hoverable" href="#contact">Contact</a>
+      <a class="hoverable" href="preview/project-detail/index.html#work">Work <sup>03</sup></a>
+      <a class="hoverable" href="preview/project-detail/index.html#about">About</a>
+      <a class="hoverable" href="preview/project-detail/index.html#contact">Contact</a>
     </div>
     <a class="nav-resume hoverable" href="assets/docs/Kaustubh_Upadhya_Resume.pdf" target="_blank" rel="noopener">Résumé <span aria-hidden="true">↗</span></a>
   </nav>
@@ -51,7 +54,7 @@
         </div>
         <div class="hero-bottom">
           <p class="hero-sub">AI &amp; Data Science student.<br>I build software around machine learning.</p>
-          <a class="hero-actions text-link magnetic hoverable" href="#work" data-label="EXPLORE">View my projects <span class="circle-arrow" aria-hidden="true">↓</span></a>
+          <a class="hero-actions text-link magnetic hoverable" href="preview/project-detail/index.html#work" data-label="EXPLORE">View my projects <span class="circle-arrow" aria-hidden="true">↓</span></a>
         </div>
         <div class="hero-meta"><span>PERSONAL PORTFOLIO / 2026</span><span class="scene-note">SCROLL TO EXPLORE ↓</span></div>
       </section>
@@ -60,22 +63,22 @@
         <article class="project" aria-labelledby="project-01-title">
           <div class="project-topline reveal"><span>01 / SELECTED PROJECT</span><span>COMING SOON</span></div>
           <div class="project-layout">
-            <figure class="project-visual reveal"><div class="project-image"><img src="assets/images/project-01.svg" width="1200" height="800" alt="Comic-cover placeholder for project 01" fetchpriority="high"></div><figcaption><span>Project preview placeholder</span><span aria-hidden="true">01 / 03</span></figcaption></figure>
-            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 01</span><h3 id="project-01-title">Project 01</h3><p>Details coming soon.</p><span class="placeholder-status">Placeholder</span></div>
+            <figure class="project-visual reveal"><a class="project-image hoverable" href="preview/project-detail/project-01.html" data-label="OPEN FILE" aria-label="Open project 01 detail page preview"><img src="assets/images/project-01.svg" width="1200" height="800" alt="Comic-cover placeholder for project 01" fetchpriority="high"></a><figcaption><span>Project preview placeholder</span><span aria-hidden="true">01 / 03</span></figcaption></figure>
+            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 01</span><h3 id="project-01-title"><a class="hoverable" href="preview/project-detail/project-01.html" data-label="OPEN FILE">Project 01</a></h3><p>Details coming soon.</p><a class="text-link hoverable detail-preview-link" href="preview/project-detail/project-01.html" data-label="OPEN FILE">Open project <span aria-hidden="true">↗</span></a></div>
           </div>
         </article>
         <article class="project" aria-labelledby="project-02-title">
           <div class="project-topline reveal"><span>02 / SELECTED PROJECT</span><span>COMING SOON</span></div>
           <div class="project-layout">
-            <figure class="project-visual reveal"><div class="project-image"><img src="assets/images/project-02.svg" width="1200" height="800" alt="Comic-cover placeholder for project 02" loading="lazy"></div><figcaption><span>Project preview placeholder</span><span aria-hidden="true">02 / 03</span></figcaption></figure>
-            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 02</span><h3 id="project-02-title">Project 02</h3><p>Details coming soon.</p><span class="placeholder-status">Placeholder</span></div>
+            <figure class="project-visual reveal"><a class="project-image hoverable" href="preview/project-detail/project-02.html" data-label="OPEN FILE" aria-label="Open project 02 detail page preview"><img src="assets/images/project-02.svg" width="1200" height="800" alt="Comic-cover placeholder for project 02" loading="lazy"></a><figcaption><span>Project preview placeholder</span><span aria-hidden="true">02 / 03</span></figcaption></figure>
+            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 02</span><h3 id="project-02-title"><a class="hoverable" href="preview/project-detail/project-02.html" data-label="OPEN FILE">Project 02</a></h3><p>Details coming soon.</p><a class="text-link hoverable detail-preview-link" href="preview/project-detail/project-02.html" data-label="OPEN FILE">Open project <span aria-hidden="true">↗</span></a></div>
           </div>
         </article>
         <article class="project" aria-labelledby="project-03-title">
           <div class="project-topline reveal"><span>03 / SELECTED PROJECT</span><span>COMING SOON</span></div>
           <div class="project-layout">
-            <figure class="project-visual reveal"><div class="project-image"><img src="assets/images/project-03.svg" width="1200" height="800" alt="Comic-cover placeholder for project 03" loading="lazy"></div><figcaption><span>Project preview placeholder</span><span aria-hidden="true">03 / 03</span></figcaption></figure>
-            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 03</span><h3 id="project-03-title">Project 03</h3><p>Details coming soon.</p><span class="placeholder-status">Placeholder</span></div>
+            <figure class="project-visual reveal"><a class="project-image hoverable" href="preview/project-detail/project-03.html" data-label="OPEN FILE" aria-label="Open project 03 detail page preview"><img src="assets/images/project-03.svg" width="1200" height="800" alt="Comic-cover placeholder for project 03" loading="lazy"></a><figcaption><span>Project preview placeholder</span><span aria-hidden="true">03 / 03</span></figcaption></figure>
+            <div class="project-copy reveal"><span class="project-kicker">SELECTED WORK / 03</span><h3 id="project-03-title"><a class="hoverable" href="preview/project-detail/project-03.html" data-label="OPEN FILE">Project 03</a></h3><p>Details coming soon.</p><a class="text-link hoverable detail-preview-link" href="preview/project-detail/project-03.html" data-label="OPEN FILE">Open project <span aria-hidden="true">↗</span></a></div>
           </div>
         </article>
         <div class="work-end reveal"><span>Elsewhere on the internet.</span><a class="text-link hoverable" href="https://github.com/kaustubh-dot" target="_blank" rel="noopener">Explore GitHub <span aria-hidden="true">↗</span></a></div>
@@ -91,6 +94,7 @@
       </section>
     </div>
   </main>
-  <footer><span>© <span id="year">2026</span> Kaustubh Upadhya</span><span>Hyderabad, India</span><a class="hoverable" href="#top">Back to top ↑</a></footer>
+  <footer><span>© <span id="year">2026</span> Kaustubh Upadhya</span><span>Hyderabad, India</span><a class="hoverable" href="preview/project-detail/index.html#top">Back to top ↑</a></footer>
+  <div class="preview-notice">DESIGN PREVIEW / OPEN A PROJECT COVER ↗</div>
 </body>
 </html>

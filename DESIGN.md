@@ -1,3 +1,5 @@
+> Current root-page layout: [Project-first refactor](docs/PROJECT_FIRST_REFACTOR.md). The current layout restores the comic foreground and keeps the procedural background fully visible; the notes below document the original visual language and motion world.
+
 ---
 name: Kaustubh Portfolio
 description: A kinetic comic-print portfolio for an AI systems builder, staged as a persistent web-slinging city.
