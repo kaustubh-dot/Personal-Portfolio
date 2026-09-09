@@ -324,6 +324,11 @@ const TAP_MOVE_LIMIT = 12;
 const TAP_TIME_LIMIT = 650;
 let touchPress = null;
 
+const WEB_SHOT_CONTENT = 'a,button,input,textarea,select,option,label,summary,[role="button"],[contenteditable="true"],p,h1,h2,h3,h4,h5,h6,span,strong,em,small,li,dt,dd,figcaption,img,svg,video,nav,footer';
+function isWebShotBlocked(target) {
+  return !(target instanceof Element) || Boolean(target.closest(WEB_SHOT_CONTENT));
+}
+
 function fireWebShot(x, y) {
   if (reduceMotion) return;
   const v = new THREE.Vector3((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1, 0.5).unproject(camera);
@@ -345,6 +350,11 @@ function fireWebShot(x, y) {
 }
 
 addEventListener('pointerdown', (e) => {
+  if (isWebShotBlocked(e.target)) {
+    touchPress = null;
+    return;
+  }
+
   if (e.pointerType === 'touch') {
     touchPress = {
       id: e.pointerId,
@@ -361,6 +371,10 @@ addEventListener('pointerdown', (e) => {
 
 addEventListener('pointermove', (e) => {
   if (!touchPress || e.pointerId !== touchPress.id) return;
+  if (isWebShotBlocked(e.target)) {
+    touchPress = null;
+    return;
+  }
   const dx = e.clientX - touchPress.x;
   const dy = e.clientY - touchPress.y;
   if (Math.hypot(dx, dy) > TAP_MOVE_LIMIT) touchPress.moved = true;
@@ -368,6 +382,10 @@ addEventListener('pointermove', (e) => {
 
 addEventListener('pointerup', (e) => {
   if (!touchPress || e.pointerId !== touchPress.id) return;
+  if (isWebShotBlocked(e.target)) {
+    touchPress = null;
+    return;
+  }
   const elapsed = performance.now() - touchPress.startedAt;
   const isTap = !touchPress.moved && elapsed < TAP_TIME_LIMIT;
   const x = touchPress.x;
