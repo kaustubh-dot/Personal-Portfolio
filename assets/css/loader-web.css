@@ -5,8 +5,7 @@
 #loader.loader-fractured::before{opacity:0}
 #loader.loader-fractured>:not(.loader-web-exit){visibility:hidden}
 .loader-web-exit{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.loader-fragments{position:absolute;inset:0;visibility:hidden}
-.loader-fractured .loader-fragments{visibility:visible}
+.loader-fragments{position:absolute;inset:0}
 .loader-fragment{position:absolute;contain:layout paint;will-change:transform,opacity}
 .loader-piece-screen{display:flex;position:absolute;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--red);color:var(--paper)}
 .loader-piece-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(#15151c 1px,transparent 1.5px) 0 0/10px 10px;opacity:.17;pointer-events:none}

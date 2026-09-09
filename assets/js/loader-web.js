@@ -1,12 +1,15 @@
 // Break the actual loader content into web-shaped pieces; no images or CDN needed.
 (() => {
   const NS = 'http://www.w3.org/2000/svg';
-  window.playPortfolioWebExit = (loader, onFinish) => {
+  window.playPortfolioWebExit = (loader, onFinish, onOpening = () => {}) => {
     const width = innerWidth, height = innerHeight;
     const center = [width * .51, height * .44];
     const compact = width < 700;
     const rings = compact ? [0, .28, .6, 1] : [0, .2, .43, .7, 1];
-    const animations = [], timers = [];
+    const animations = [];
+    const timing = { fracture:220, opening:680, piece:650, ring:65, spoke:18, fade:900, end:1240 };
+    let frame = 0, opened = false;
+    const open = () => { if (!opened) { opened = true; onOpening(); } };
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let cleaned = false;
     const layer = document.createElement('div');
@@ -15,7 +18,7 @@
     const cleanup = () => {
       if (cleaned) return;
       cleaned = true;
-      timers.forEach(clearTimeout);
+      cancelAnimationFrame(frame);
       animations.forEach(animation => animation.cancel());
       layer.remove();
       loader.classList.remove('loader-fractured', 'loader-breaking');
@@ -23,10 +26,12 @@
       document.removeEventListener('visibilitychange', onVisibility);
       motion.removeEventListener('change', cleanup);
       onFinish();
+      open();
     };
     const onVisibility = () => { if (document.hidden) cleanup(); };
     const animate = (element, frames, options) => {
       const animation = element.animate(frames, { fill:'both', ...options });
+      animation.pause();
       animations.push(animation);
       return animation;
     };
@@ -69,6 +74,12 @@
         path.style.strokeDasharray='1';svg.append(path);strokes.push(path);
       }
       const padding=getComputedStyle(loader).padding;
+      const progress = loader.querySelector('.loader-bar i');
+      if (progress) {
+        const transform = getComputedStyle(progress).transform;
+        progress.style.animation = 'none';
+        progress.style.transform = transform;
+      }
       const template=loader.cloneNode(true);
       template.removeAttribute('id');template.className='loader-piece-screen';
       template.style.width=width+'px';template.style.height=height+'px';
@@ -100,14 +111,33 @@
             {transform:'translate3d(0,0,0) rotate(0deg) scale(1)',opacity:1,offset:0},
             {transform:'translate3d('+(drift[0]*.16)+'px,'+(drift[1]*.15)+'px,0) rotate('+(twist*.25)+'deg) scale(.92)',opacity:1,offset:.22},
             {transform:'translate3d('+drift[0]+'px,'+drift[1]+'px,0) rotate('+twist+'deg) scale(.025)',opacity:0,offset:1}
-          ],{duration:790,delay:240+ring*85+(i%4)*24,easing:'cubic-bezier(.4,0,.25,1)'});
+          ],{duration:timing.piece,delay:timing.fracture+ring*timing.ring+(i%4)*timing.spoke,easing:'cubic-bezier(.4,0,.25,1)'});
         });
       }
-      layer.append(fragments,svg);loader.append(layer);loader.classList.add('loader-breaking');
-      strokes.forEach(path=>animate(path,[{strokeDashoffset:'1',opacity:0},{strokeDashoffset:'.65',opacity:1,offset:.18},{strokeDashoffset:'0',opacity:1}],{duration:390,easing:'ease-out'}));
-      animate(svg,[{opacity:1,transform:'scale(1)'},{opacity:.8,offset:.5},{opacity:0,transform:'scale(1.045)'}],{delay:850,duration:560,easing:'ease-in'});
-      timers.push(setTimeout(()=>loader.classList.add('loader-fractured'),240));
-      timers.push(setTimeout(cleanup,1480));
+      layer.append(fragments,svg);loader.append(layer);
+      strokes.forEach(path=>animate(path,[{strokeDashoffset:'1',opacity:0},{strokeDashoffset:'.65',opacity:1,offset:.18},{strokeDashoffset:'0',opacity:1}],{duration:300,easing:'ease-out'}));
+      animate(svg,[{opacity:1,transform:'scale(1)'},{opacity:.8,offset:.5},{opacity:0,transform:'scale(1.045)'}],{delay:timing.fade,duration:timing.end-timing.fade,easing:'ease-in'});
+      // Assemble first, then start every animation from the same painted frame.
+      // Phase changes share that clock so slow setup cannot skip the opening.
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(start => {
+        if (cleaned) return;
+        loader.classList.add('loader-breaking');
+        animations.forEach(animation => {
+          animation.play();
+          animation.startTime = start;
+        });
+        const tick = now => {
+          if (cleaned) return;
+          const elapsed = now - start;
+          if (elapsed >= timing.fracture) loader.classList.add('loader-fractured');
+          if (elapsed >= timing.opening) open();
+          if (elapsed >= timing.end) { cleanup(); return; }
+          frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+        });
+      });
       addEventListener('resize',cleanup,{once:true});
       document.addEventListener('visibilitychange',onVisibility);
       motion.addEventListener('change',cleanup,{once:true});
