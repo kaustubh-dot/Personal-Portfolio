@@ -25,9 +25,9 @@ img{display:block;max-width:100%;height:auto}
 @media(hover:hover) and (pointer:fine){.custom-cursor,.custom-cursor a{cursor:none}.custom-cursor .cursor-dot,.custom-cursor .cursor-ring,.custom-cursor .cursor-label{visibility:visible}}
 @media(hover:none){#webTrail{display:none}}
 /* Comic foreground. The scene remains visible through every section. */
-#loader{display:none;position:fixed;inset:0;z-index:9000;background:var(--red);color:var(--paper);padding:28px var(--gutter);flex-direction:column;justify-content:space-between;overflow:hidden}
+#loader{display:none;position:fixed;inset:0;z-index:9000;background:var(--red);color:var(--paper);padding:28px var(--gutter);flex-direction:column;justify-content:space-between;overflow:hidden;transition:transform .75s cubic-bezier(.76,0,.24,1),visibility .75s}
 .is-loading #loader{display:flex}
-#loader.done{display:none;pointer-events:none}
+#loader.done{display:flex;transform:translateY(-112%) rotate(-4deg);visibility:hidden;pointer-events:none}
 #loader::before{content:'';position:absolute;inset:0;background:radial-gradient(#15151c 1px,transparent 1.5px) 0 0/10px 10px;opacity:.17;pointer-events:none}
 .loader-top,.loader-bottom{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;font:10px var(--mono);letter-spacing:.12em}
 .loader-top{border-bottom:2px solid var(--ink);padding-bottom:18px}.loader-top span:first-child{background:var(--ink);padding:8px 12px}

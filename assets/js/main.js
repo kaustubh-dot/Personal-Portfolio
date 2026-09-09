@@ -533,9 +533,9 @@ try {
 }
 if (!reduceMotion) document.documentElement.classList.add('motion-ready');
 
-async function launch() {
+function launch() {
+  window.finishPortfolioIntro?.();
   startScene();
-  await window.finishPortfolioIntro?.();
   if (reduceMotion) return;
   gsap.timeline({ defaults: { ease: 'power4.out' } })
     .to('.hero h1 .row > span', { y: 0, rotateX: 0, opacity: 1, duration: 1.25, stagger: .12 }, .12)
@@ -547,7 +547,7 @@ async function launch() {
 }
 const fontReady = document.fonts?.ready || Promise.resolve();
 Promise.race([fontReady, new Promise(resolve => setTimeout(resolve, 750))])
-  .then(launch);
+  .then(() => setTimeout(launch, reduceMotion ? 0 : Math.max(0, 450 - (performance.now() - (window.portfolioIntroStarted || 0)))));
 
 if (!reduceMotion) {
   const h13d = document.getElementById('h13d');
