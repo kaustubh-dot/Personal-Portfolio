@@ -1,25 +1,25 @@
-# Kaustubh Upadhya - Portfolio
+# Kaustubh Upadhya — Portfolio
 
-Personal portfolio showcasing my AI/ML projects, technical interests, and contact links.
+Static portfolio built with HTML, CSS, JavaScript, Three.js, and GSAP. The homepage has a comic city scene, selected projects, Side Quests, About, and contact links. Each project opens a dedicated detail page.
 
-## Tech
+## Branches
 
-HTML, CSS, JavaScript, Three.js, GSAP
+- main: deployed version.
+- all-changes: current portfolio development.
 
-## Run Locally
+## Run and build
 
-```powershell
-npm run dev
-```
+Run npm run dev, then open http://localhost:5500. Python must be available for the local server.
 
-Open:
+Run npm run build to generate public/ with the homepage, project pages, assets, and robots.txt. Build output is generated and should not be committed.
 
-```text
-http://localhost:5500
-```
+## Edit content
 
-## Current UI
+- index.html: homepage content and project links.
+- assets/: homepage styles, scripts, illustrations, and résumé.
+- projects/project-01.html through project-03.html: project content, currently placeholders.
+- projects/assets/: shared project styles, interactions, and artwork.
 
-The homepage uses a Spider-Man-inspired comic layout with three large, labelled project placeholders. The animated city stays fully visible through transparent sections, with the original scroll choreography, cursor trail, and click effects. See [the refactor notes](docs/PROJECT_FIRST_REFACTOR.md) for placeholder replacement and motion details.
+Replace placeholder copy and media in the corresponding HTML pages when real project details are available. Keep image dimensions accurate to avoid layout shifts.
 
-Build the static deployment directory with npm run build.
+The site supports reduced motion. The loader and logo cameo work independently of the animation CDNs; page content remains available without JavaScript.

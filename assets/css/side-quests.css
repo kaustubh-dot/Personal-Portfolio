@@ -26,7 +26,6 @@
   .quest-grid { max-width: 1550px; margin-inline: auto; }
 }
 @media (max-width: 760px) {
-  .nav-links .nav-side-quests { display: none; }
   .side-quests { padding-block: 45px 65px; }
   .side-quests .section-heading { margin-bottom: 30px; }
   .side-quests .section-heading h2 { font-size: 17vw; }

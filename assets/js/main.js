@@ -251,16 +251,15 @@ const checkpoints = [];
 
 let webProgress = 0;
 let webTarget = 0;
-function setHud(p) {
-  document.getElementById('hudWeb').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
-}
 
+const progressFill = document.getElementById('progFill');
+const scrollLabel = document.getElementById('hudScroll');
 addEventListener('scroll', () => {
   const h = document.documentElement;
   const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   webTarget = p;
-  document.getElementById('progFill').style.width = p * 100 + '%';
-  document.getElementById('hudScroll').textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
+  progressFill.style.width = p * 100 + '%';
+  scrollLabel.textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
 }, { passive: true });
 
 const footer = document.querySelector('footer');
@@ -399,6 +398,8 @@ addEventListener('pointercancel', () => {
 });
 
 const clock = new THREE.Clock();
+const lookStart = new THREE.Vector3(perch.x - 4.6, perch.y - 2.2, perch.z);
+const look = new THREE.Vector3();
 function tick() {
   const dt = clock.getDelta();
   const t = clock.getElapsedTime();
@@ -414,7 +415,6 @@ function tick() {
   const segsOn = Math.floor(webProgress * WEB_SEGS);
   web.geometry.setDrawRange(0, Math.max(0, segsOn * RADIAL * 6));
   web2.geometry.setDrawRange(0, Math.max(0, segsOn * RADIAL * 6));
-  setHud(webProgress);
 
   const tp = webCurve.getPointAt(Math.max(0.001, Math.min(0.999, webProgress)));
   tip.position.copy(tp);
@@ -445,8 +445,7 @@ function tick() {
   camera.position.x += ((followX + mouse.x * 1.6) - camera.position.x) * 0.05;
   camera.position.y += ((followY - mouse.y * 1.0) - camera.position.y) * 0.05;
   camera.position.z += (followZ - camera.position.z) * 0.05;
-  const lookStart = new THREE.Vector3(perch.x - 4.6, perch.y - 2.2, perch.z);
-  const look = new THREE.Vector3().lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + 0.05));
+  look.lerpVectors(lookStart, tp, Math.min(1, webProgress * 1.25 + 0.05));
   camera.lookAt(look);
 
   clouds.children.forEach((c) => {
