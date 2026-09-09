@@ -12,9 +12,5 @@
   };
   if (!reduced) root.classList.add('is-loading');
   window.setTimeout(window.finishPortfolioIntro, 1800);
-  const heroMeta = document.querySelector('.hero-meta');
-  const updateHeroMeta = () => heroMeta.classList.toggle('is-past-hero', window.scrollY > window.innerHeight * .45);
-  addEventListener('scroll', updateHeroMeta, { passive: true });
-  updateHeroMeta();
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
