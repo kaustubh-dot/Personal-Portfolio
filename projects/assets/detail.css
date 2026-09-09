@@ -277,7 +277,7 @@ details[open] .step-icon { transform:rotate(45deg); color:var(--paper); backgrou
   .site-header { animation:case-header-in .65s cubic-bezier(.16,1,.3,1) both; }
   .hero-title h1>.title-line>span { animation:case-title-in 1.05s cubic-bezier(.16,1,.3,1) .08s both; }
   .hero-title h1>em.title-line>span { animation-delay:.2s; }
-  .cover-button { transform-origin:52% 52%; animation:case-sculpture-in 1.25s cubic-bezier(.16,1,.3,1) .08s both; }
+  .cover-button { transform-origin:52% 52%;  }
   .hero-topline { animation:case-detail-in .65s ease-out .18s both; }
   .hero-bottom,.cover-figure figcaption { animation:case-detail-in .7s cubic-bezier(.16,1,.3,1) .48s both; }
   .project-meta>div { animation:case-detail-in .65s cubic-bezier(.16,1,.3,1) .55s both; }
@@ -289,10 +289,7 @@ details[open] .step-icon { transform:rotate(45deg); color:var(--paper); backgrou
   from { transform:translate3d(0,140%,0) rotate(4deg); opacity:0; }
   to { transform:translate3d(0,0,0) rotate(0); opacity:1; }
 }
-@keyframes case-sculpture-in {
-  from { transform:translate3d(6%,8%,0) rotate(-10deg) scale(.86); opacity:0; }
-  to { transform:translate3d(0,0,0) rotate(0) scale(1); opacity:1; }
-}
+
 @keyframes case-header-in {
   from { transform:translateY(-10px); opacity:0; }
   to { transform:translateY(0); opacity:1; }

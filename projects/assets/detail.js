@@ -7,6 +7,42 @@
   const links = [...document.querySelectorAll('.chapter-links a')];
   const hero = document.querySelector('.cover-button');
   const cursor = document.querySelector('.image-cursor');
+  // Wait for the sculpture itself, rather than spending its entrance while it loads.
+  function enterSculpture() {
+    if (reduce.matches || !hero.animate) return;
+    const image = hero.querySelector('img');
+    const animation = hero.animate([
+      { transform:'translate3d(10%,14%,0) rotate(-22deg) scale(.74)', opacity:0, offset:0 },
+      { transform:'translate3d(5%,6%,0) rotate(-12deg) scale(.86)', opacity:1, offset:.3 },
+      { transform:'translate3d(0,0,0) rotate(0) scale(1)', opacity:1, offset:1 }
+    ], { duration:2000, delay:150, easing:'cubic-bezier(.22,.6,.35,1)', fill:'both' });
+    animation.id = 'project-sculpture-entrance';
+    animation.pause();
+    animation.currentTime = 0;
+    let cancelled = false;
+    const stop = () => {
+      cancelled = true;
+      animation.cancel();
+      document.removeEventListener('visibilitychange', start);
+      reduce.removeEventListener('change', stop);
+    };
+    const start = () => {
+      if (cancelled || document.hidden) return;
+      document.removeEventListener('visibilitychange', start);
+      if (reduce.matches || hero.getBoundingClientRect().bottom < 0) { stop(); return; }
+      animation.play();
+    };
+    const ready = image.decode ? image.decode() : Promise.resolve();
+    ready.catch(() => {}).then(() => {
+      if (cancelled) return;
+      if (document.hidden) document.addEventListener('visibilitychange', start);
+      else requestAnimationFrame(start);
+    });
+    reduce.addEventListener('change', stop, { once:true });
+    animation.finished.then(stop).catch(() => {});
+  }
+  enterSculpture();
+
   let scheduled = false;
 
   function readPosition() {
