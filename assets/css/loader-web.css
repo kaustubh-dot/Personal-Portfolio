@@ -1,0 +1,15 @@
+
+/* The exit reuses the loader's content inside curved web cells. */
+#loader.loader-breaking{pointer-events:none}
+#loader.loader-fractured{background:transparent}
+#loader.loader-fractured::before{opacity:0}
+#loader.loader-fractured>:not(.loader-web-exit){visibility:hidden}
+.loader-web-exit{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.loader-fragments{position:absolute;inset:0;visibility:hidden}
+.loader-fractured .loader-fragments{visibility:visible}
+.loader-fragment{position:absolute;contain:layout paint;will-change:transform,opacity}
+.loader-piece-screen{display:flex;position:absolute;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(--red);color:var(--paper)}
+.loader-piece-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(#15151c 1px,transparent 1.5px) 0 0/10px 10px;opacity:.17;pointer-events:none}
+.loader-piece-screen .loader-bar i{animation:none;transform:translateX(100%)}
+.loader-web-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform-origin:51% 44%;will-change:opacity,transform}
+@media(prefers-reduced-motion:reduce){.loader-web-exit{display:none}}
