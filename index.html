@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;450;500;550;600;650;700;800&family=Bangers&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/side-quests.css">
   <script src="assets/js/boot.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -37,6 +38,7 @@
     <a class="nav-logo hoverable" href="#top" aria-label="Kaustubh Upadhya, back to top"><span class="publisher-logo">KU.</span><span class="publisher-name">KAUSTUBH<br>UPADHYA</span></a>
     <div class="nav-links">
       <a class="hoverable" href="#work">Work <sup>03</sup></a>
+      <a class="nav-side-quests hoverable" href="#side-quests">Side quests</a>
       <a class="hoverable" href="#about">About</a>
       <a class="hoverable" href="#contact">Contact</a>
     </div>
@@ -80,12 +82,93 @@
         </article>
         <div class="work-end reveal"><span>Elsewhere on the internet.</span><a class="text-link hoverable" href="https://github.com/kaustubh-dot" target="_blank" rel="noopener">Explore GitHub <span aria-hidden="true">↗</span></a></div>
       </section>
+
+      <section id="side-quests" class="side-quests" aria-labelledby="side-quests-title">
+        <header class="section-heading reveal">
+          <div><span class="eyebrow">02 / THE WORKBENCH</span><h2 id="side-quests-title">Side quests<span class="red-period">.</span></h2></div>
+          <p>Small ideas. Loose ends. <br>Things worth trying.</p>
+        </header>
+        <div class="quest-grid">
+          <article class="quest-entry reveal" aria-labelledby="quest-prototype-title">
+            <div class="quest-sheet quest-sheet--prototype">
+              <div class="quest-art" aria-hidden="true">
+                <svg viewBox="0 0 420 250" fill="none" focusable="false">
+                  <path d="M0 48H420M0 202H420" stroke="currentColor" opacity=".2" stroke-dasharray="3 8"/>
+                  <path d="M84 128H334M267 112L284 128L267 144" stroke="currentColor" stroke-width="3"/>
+                  <rect x="43" y="92" width="74" height="74" fill="var(--paper)" stroke="var(--ink)" stroke-width="3" transform="rotate(-8 80 129)"/>
+                  <path d="M65 129H95M80 114V144" stroke="var(--blue)" stroke-width="4"/>
+                  <rect x="168" y="87" width="86" height="86" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M192 130L205 143L230 117" stroke="var(--ink)" stroke-width="4"/>
+                  <circle cx="330" cy="128" r="36" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                  <circle cx="330" cy="128" r="13" fill="var(--red)" stroke="var(--ink)" stroke-width="3"/>
+                </svg>
+                <span class="quest-media-label">Prototype preview placeholder</span>
+              </div>
+              <div class="quest-copy">
+                <span class="quest-kind">Experiment</span>
+                <h3 id="quest-prototype-title">What if I tried…</h3>
+                <p>A place for a small prototype, the question behind it, and a glimpse of it working.</p>
+                <div class="quest-takeaway"><span>The interesting bit</span><p>One thing the experiment taught me.</p></div>
+                <span class="quest-placeholder">Placeholder · details to come</span>
+              </div>
+            </div>
+          </article>
+          <article class="quest-entry reveal" aria-labelledby="quest-failure-title">
+            <div class="quest-sheet quest-sheet--failure">
+              <div class="quest-art" aria-hidden="true">
+                <svg viewBox="0 0 420 250" fill="none" focusable="false">
+                  <path d="M0 48H420M0 202H420" stroke="currentColor" opacity=".2" stroke-dasharray="3 8"/>
+                  <path d="M55 168H153V92H245" stroke="var(--ink)" stroke-width="12"/>
+                  <path d="M55 168H153V92H245" stroke="var(--paper)" stroke-width="6"/>
+                  <path d="M153 168H290L337 122M322 122H337V137" stroke="var(--paper)" stroke-width="3" stroke-dasharray="6 6"/>
+                  <circle cx="55" cy="168" r="10" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M271 67L313 109M313 67L271 109" stroke="var(--ink)" stroke-width="14"/>
+                  <path d="M271 67L313 109M313 67L271 109" stroke="var(--yellow)" stroke-width="7"/>
+                </svg>
+                <span class="quest-media-label">Iteration preview placeholder</span>
+              </div>
+              <div class="quest-copy">
+                <span class="quest-kind">An interesting failure</span>
+                <h3 id="quest-failure-title">Well, that broke.</h3>
+                <p>A place for an idea that didn’t pan out, the unexpected result, and a change of direction.</p>
+                <div class="quest-takeaway"><span>The useful part</span><p>What I’d do differently next time.</p></div>
+                <span class="quest-placeholder">Placeholder · details to come</span>
+              </div>
+            </div>
+          </article>
+          <article class="quest-entry reveal" aria-labelledby="quest-learning-title">
+            <div class="quest-sheet quest-sheet--learning">
+              <div class="quest-art" aria-hidden="true">
+                <svg viewBox="0 0 420 250" fill="none" focusable="false">
+                  <path d="M0 48H420M0 202H420" stroke="currentColor" opacity=".2" stroke-dasharray="3 8"/>
+                  <circle cx="210" cy="123" r="78" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 7"/>
+                  <ellipse cx="210" cy="123" rx="126" ry="39" stroke="var(--ink)" stroke-width="3" transform="rotate(-24 210 123)"/>
+                  <circle cx="210" cy="123" r="31" fill="var(--blue)" stroke="var(--ink)" stroke-width="3"/>
+                  <path d="M198 123H222M210 111V135" stroke="var(--paper)" stroke-width="3"/>
+                  <circle cx="307" cy="76" r="13" fill="var(--red)" stroke="var(--ink)" stroke-width="3"/>
+                  <circle cx="144" cy="164" r="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+                </svg>
+                <span class="quest-media-label">Learning study placeholder</span>
+              </div>
+              <div class="quest-copy">
+                <span class="quest-kind">Currently exploring</span>
+                <h3 id="quest-learning-title">Down a rabbit hole.</h3>
+                <p>A place for a visual study, a new technique, or something I’m still figuring out.</p>
+                <div class="quest-takeaway"><span>The next question</span><p>Where this little exploration could go.</p></div>
+                <span class="quest-placeholder">Placeholder · details to come</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="quest-footnote reveal">A few pages from the sketchbook. Real experiments will go here.</p>
+      </section>
+
       <section id="about" class="about" aria-labelledby="about-title">
-        <div class="about-label reveal"><span class="eyebrow">02 / A BIT ABOUT ME</span><span class="about-mark" aria-hidden="true">Behind<br> the mask<span>.</span></span></div>
+        <div class="about-label reveal"><span class="eyebrow">03 / A BIT ABOUT ME</span><span class="about-mark" aria-hidden="true">Behind<br> the mask<span>.</span></span></div>
         <div class="about-copy"><h2 id="about-title" class="flip3d">Hi, I’m Kaustubh.</h2><div class="about-columns"><p class="reveal">I’m Kaustubh, an AI &amp; Data Science student based in Hyderabad. I’m interested in what happens when a model becomes part of a product: the data, the interface, and the decisions it helps someone make.</p><p class="reveal">Lately, that has meant working with explainable ML, exploring agent workflows, and thinking about how to evaluate both. I like getting into the implementation and finding out where the idea holds up.</p></div><a class="text-link hoverable reveal" href="assets/docs/Kaustubh_Upadhya_Resume.pdf" download>Download my résumé <span aria-hidden="true">↓</span></a></div>
       </section>
       <section id="contact" class="contact" aria-labelledby="contact-title">
-        <div class="contact-top reveal"><span class="eyebrow">03 / GET IN TOUCH</span><p>For an internship, a project,<br>or a conversation.</p></div>
+        <div class="contact-top reveal"><span class="eyebrow">04 / GET IN TOUCH</span><p>For an internship, a project,<br>or a conversation.</p></div>
         <a class="contact-title-link hoverable" href="mailto:kaustubhupadhya0@gmail.com" data-label="SAY HELLO"><h2 id="contact-title" class="flip3d">Let’s talk<span class="red-period">.</span></h2><span class="contact-arrow" aria-hidden="true">↗</span></a>
         <div class="contact-bottom reveal"><a class="contact-email hoverable" href="mailto:kaustubhupadhya0@gmail.com">kaustubhupadhya0@gmail.com</a><div class="social-links"><a class="hoverable" href="https://github.com/kaustubh-dot" target="_blank" rel="noopener">GitHub ↗</a><a class="hoverable" href="https://www.linkedin.com/in/kaustubhupadhya/" target="_blank" rel="noopener">LinkedIn ↗</a><a class="hoverable" href="https://www.instagram.com/_kaustubh22/" target="_blank" rel="noopener">Instagram ↗</a><a class="hoverable" href="https://leetcode.com/u/kaustubh-dot/" target="_blank" rel="noopener">LeetCode ↗</a></div></div>
       </section>

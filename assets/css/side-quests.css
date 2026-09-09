@@ -1,0 +1,43 @@
+/* Smaller sketchbook pages within the existing comic world. */
+.side-quests { padding-block: 60px 105px; }
+.side-quests .section-heading { margin-bottom: 42px; }
+.side-quests .section-heading h2 { font-size: clamp(68px, 8vw, 112px); }
+.quest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 3vw, 46px); align-items: start; }
+.quest-entry { min-width: 0; }
+.quest-entry:nth-child(2) { padding-top: 34px; }
+.quest-sheet { background: var(--paper); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); transform: rotate(-1deg); }
+.quest-sheet--failure { transform: rotate(1deg); }
+.quest-sheet--learning { transform: rotate(-.5deg); }
+.quest-art { position: relative; overflow: hidden; background: var(--blue); color: var(--paper); border-bottom: 2px solid var(--ink); }
+.quest-sheet--failure .quest-art { background: var(--red); }
+.quest-sheet--learning .quest-art { background: var(--yellow); color: var(--ink); }
+.quest-art svg { display: block; width: 100%; height: auto; padding-block: 8px 22px; }
+.quest-media-label { position: absolute; left: 12px; bottom: 10px; max-width: calc(100% - 24px); padding: 3px 6px; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); font: 9px/1.5 var(--mono); }
+.quest-copy { padding: clamp(18px, 2vw, 28px); }
+.quest-kind { display: block; color: var(--blue); font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+.quest-copy h3 { font: clamp(30px, 3vw, 43px)/1.05 var(--display); letter-spacing: .02em; margin-bottom: 16px; text-wrap: balance; }
+.quest-copy > p { font-size: 14px; line-height: 1.65; }
+.quest-takeaway { margin-top: 24px; padding-top: 15px; border-top: 1px dashed var(--line); }
+.quest-takeaway > span { font-size: 12px; font-weight: 600; }
+.quest-takeaway p { margin-top: 5px; font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+.quest-placeholder { display: block; margin-top: 22px; font: 9px/1.6 var(--mono); color: var(--ink-soft); }
+.quest-footnote { display: table; max-width: 100%; margin-top: 38px; padding: 9px 12px; background: var(--paper); border: 1px solid var(--ink); font-size: 12px; }
+@media (min-width: 1700px) {
+  .quest-grid { max-width: 1550px; margin-inline: auto; }
+}
+@media (max-width: 760px) {
+  .nav-links .nav-side-quests { display: none; }
+  .side-quests { padding-block: 45px 65px; }
+  .side-quests .section-heading { margin-bottom: 30px; }
+  .side-quests .section-heading h2 { font-size: 17vw; }
+  .quest-grid { grid-template-columns: 1fr; gap: 32px; }
+  .quest-entry:nth-child(2) { padding-top: 0; }
+  .quest-copy { padding: 22px; }
+  .quest-copy h3 { font-size: 36px; }
+  .quest-sheet { transform: none; box-shadow: 4px 4px 0 var(--ink); }
+  .quest-art svg { max-height: 245px; }
+  .quest-footnote { margin-top: 28px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quest-sheet { transform: none; }
+}
