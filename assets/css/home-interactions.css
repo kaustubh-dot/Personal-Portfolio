@@ -45,22 +45,199 @@
 @media(hover:hover) and (pointer:fine) { .custom-cursor .spider-logo { cursor:none; } }
 @media(max-width:760px) { .spider-logo .publisher-logo { width:44px; height:44px; } }
 @media(prefers-reduced-motion:reduce) { .custom-cursor .spider-logo { cursor:pointer; } }
+/* Contact section restored from the deployed portfolio. */
+.contact.deployed-contact {
+  min-height: 92svh;
+  padding: clamp(72px, 10vh, 120px) var(--gutter) clamp(96px, 14vh, 150px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.contact.deployed-contact .eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font: 500 12px/1.6 var(--mono);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+.contact.deployed-contact .eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 3px;
+  background: var(--red);
+}
+.contact.deployed-contact .h2 {
+  max-width: 1120px;
+  margin: 0 auto;
+  color: var(--ink);
+  font: 400 clamp(40px, 6.5vw, 86px)/1 var(--display);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+.contact.deployed-contact .h2 .accent {
+  color: var(--red);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+.contact.deployed-contact .contact-copy {
+  width: min(720px, 100%);
+  max-width: 720px;
+  margin: 26px auto 0;
+  padding: 18px 22px;
+  border: 3px solid rgba(21, 21, 28, .9);
+  border-radius: 18px;
+  background: rgba(251, 250, 245, .9);
+  box-shadow: 6px 6px 0 rgba(21, 21, 28, .18);
+  color: var(--ink);
+  font: 400 clamp(21px, 2.15vw, 28px)/1.45 'Patrick Hand', cursive;
+  letter-spacing: .01em;
+  text-align: center;
+}
+.contact.deployed-contact .contact-copy::after { content: none; }
+.contact.deployed-contact .mega-cta {
+  margin-top: 46px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.contact.deployed-contact .btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 14px 32px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  font: 400 20px/1.2 var(--display);
+  letter-spacing: .08em;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.contact.deployed-contact .btn-primary {
+  min-width: 206px;
+  background: var(--red);
+  color: #fff;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.contact.deployed-contact .btn-ghost {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.contact.deployed-contact .btn:hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: 9px 9px 0 var(--ink);
+}
+.contact.deployed-contact .btn-ghost:hover {
+  background: var(--yellow);
+  transform: translate(-3px, -3px) rotate(1deg);
+}
+.contact.deployed-contact .btn .dot {
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+}
+.contact.deployed-contact .social-row {
+  width: min(550px, 100%);
+  margin-top: 38px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(190px, 240px));
+  justify-content: center;
+  gap: 22px 26px;
+}
+.contact.deployed-contact .social {
+  --social-accent: var(--yellow);
+  position: relative;
+  min-height: 76px;
+  padding: 15px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 5px 5px 0 var(--ink);
+  color: var(--ink);
+  font: 400 18px/1.2 var(--display);
+  letter-spacing: .08em;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.contact.deployed-contact .social::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 9px;
+  border-right: 3px solid var(--ink);
+  background: var(--social-accent);
+}
+.contact.deployed-contact .social:hover {
+  transform: translate(-3px, -5px) rotate(-1deg);
+  background: #fff;
+  box-shadow: 9px 11px 0 var(--ink);
+}
+.contact.deployed-contact .social.ig { --social-accent: var(--red); }
+.contact.deployed-contact .social.li { --social-accent: var(--blue); }
+.contact.deployed-contact .social.lc { --social-accent: var(--yellow); }
+.contact.deployed-contact .social.gh { --social-accent: var(--ink); }
+.contact.deployed-contact .social svg {
+  position: relative;
+  z-index: 1;
+  width: 31px;
+  height: 31px;
+  flex: none;
+  color: var(--ink);
+}
+.contact.deployed-contact .social.ig svg {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(1.5px 1.5px 0 rgba(21, 21, 28, .16));
+}
+.contact.deployed-contact .social.li svg {
+  width: 29px;
+  height: 29px;
+  color: #0a66c2;
+  filter: drop-shadow(1.5px 1.5px 0 rgba(21, 21, 28, .18));
+}
+.contact.deployed-contact .social .leetcode-mark { width: 32px; height: 32px; }
+.contact.deployed-contact .social .lc-gold { stroke: #ffa116; }
+.contact.deployed-contact .social .lc-dark { stroke: #111827; }
+.contact.deployed-contact .social span { position: relative; z-index: 1; }
 
-.contact.contact-buttons{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:650px;padding-block:65px 80px;text-align:center}
-.contact-buttons .eyebrow{margin-bottom:26px}.contact-buttons h2{font-size:clamp(80px,11vw,160px)}
-.contact-buttons .contact-copy{max-width:570px;margin-top:29px;padding:12px 20px;background:var(--paper);border:2px solid var(--ink);font-size:14px;line-height:1.65}
-.contact-buttons .mega-cta{margin-top:30px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-.contact-buttons .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:14px 32px;border:3px solid var(--ink);border-radius:14px;font:20px/1.2 var(--display);letter-spacing:.08em;box-shadow:5px 5px 0 var(--ink);transition:box-shadow .25s,background .25s}
-.contact-buttons .btn-primary{min-width:206px;background:var(--red);color:#fff}.contact-buttons .btn-ghost{background:var(--paper);color:var(--ink)}
-.contact-buttons .btn:hover{box-shadow:9px 9px 0 var(--ink)}.contact-buttons .btn-ghost:hover{background:var(--yellow)}
-.contact-buttons .dot{width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid var(--ink)}
-.contact-buttons .social-row{margin-top:38px;display:grid;grid-template-columns:repeat(2,minmax(190px,240px));gap:22px 26px;justify-content:center;width:min(550px,100%)}
-.contact-buttons .social{position:relative;display:flex;align-items:center;justify-content:center;min-height:76px;border:3px solid var(--ink);padding:15px 22px;border-radius:16px;font:18px/1.2 var(--display);letter-spacing:.08em;color:var(--ink);background:var(--paper);box-shadow:5px 5px 0 var(--ink);overflow:hidden;transition:transform .25s,box-shadow .25s,background .25s}
-.contact-buttons .social::before{content:"";position:absolute;inset:0 auto 0 0;width:9px;background:var(--social-accent,var(--yellow));border-right:3px solid var(--ink)}
-.contact-buttons .social:hover{transform:translate(-3px,-5px) rotate(-1deg);box-shadow:9px 11px 0 var(--ink);background:#fff}
-.contact-buttons .social.ig{--social-accent:var(--red)}.contact-buttons .social.li{--social-accent:var(--blue)}.contact-buttons .social.gh{--social-accent:var(--ink)}
-.contact-buttons .social span{position:relative;z-index:1}
-@media(max-width:760px){.contact.contact-buttons{padding-block:45px 65px}.contact-buttons h2{font-size:22vw}.contact-buttons .contact-copy{font-size:12px;padding:11px 15px;margin-top:23px}.contact-buttons .social-row{grid-template-columns:repeat(2,minmax(0,1fr));max-width:480px;gap:18px}.contact-buttons .social{padding-inline:16px;font-size:17px}}
-@media(max-width:460px){.contact-buttons .mega-cta{width:100%;gap:15px}.contact-buttons .btn{padding:13px 23px;font-size:19px;min-height:54px}.contact-buttons .btn-primary{min-width:0}.contact-buttons .social-row{grid-template-columns:1fr;max-width:310px;gap:17px;margin-top:29px}.contact-buttons .social{min-height:65px}}
-@media(prefers-reduced-motion:reduce){.contact-buttons .social:hover{transform:none}}
-\n/* Deployed contact treatment, kept on the shared contact markup. */\n.contact .mega-cta,.contact .social-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}.contact .mega-cta{margin-top:30px}.contact .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:14px 32px;border:3px solid var(--ink);border-radius:14px;font:20px/1.2 var(--display);letter-spacing:.08em;box-shadow:5px 5px 0 var(--ink)}.contact .btn-primary{min-width:206px;background:var(--red);color:#fff}.contact .btn-ghost{background:var(--paper)}.contact .btn .dot{width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid var(--ink)}.contact .social-row{margin-top:38px;display:grid;grid-template-columns:repeat(2,minmax(190px,240px));gap:22px 26px;width:min(550px,100%)}.contact .social{position:relative;display:flex;align-items:center;justify-content:center;min-height:76px;border:3px solid var(--ink);padding:15px 22px;border-radius:16px;font:18px/1.2 var(--display);letter-spacing:.08em;color:var(--ink);background:var(--paper);box-shadow:5px 5px 0 var(--ink);overflow:hidden}.contact .social::before{content:"";position:absolute;inset:0 auto 0 0;width:9px;background:var(--social-accent,var(--yellow));border-right:3px solid var(--ink)}.contact .social span{position:relative;z-index:1}.contact .social.ig{--social-accent:var(--red)}.contact .social.li{--social-accent:var(--blue)}.contact .social.gh{--social-accent:var(--ink)}\n@media(max-width:460px){.contact .mega-cta{width:100%}.contact .social-row{grid-template-columns:1fr;max-width:310px}.contact .btn{font-size:19px}}\n
+@media (max-width: 860px) {
+  .contact.deployed-contact .social-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 520px;
+  }
+  .contact.deployed-contact .social { padding-inline: 18px; }
+}
+@media (max-width: 460px) {
+  .contact.deployed-contact { padding-inline: 20px; }
+  .contact.deployed-contact .mega-cta { width: 100%; }
+  .contact.deployed-contact .btn { padding: 13px 23px; font-size: 19px; }
+  .contact.deployed-contact .btn-primary { min-width: 0; }
+  .contact.deployed-contact .social-row {
+    max-width: 310px;
+    margin-top: 29px;
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact.deployed-contact .social:hover { transform: none; }
+}
